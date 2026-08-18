@@ -10,7 +10,7 @@ def get_vid(q):
         req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
         data = urllib.request.urlopen(req, timeout=5).read().decode()
         ids = re.findall(r"\"videoId\":\"([^\"]+)\"", data)
-        return ids[0] if ids else None
+        return ids[0] if ids else None 
     except Exception:
         return None
 
@@ -24,7 +24,7 @@ def ai_agent_router():
     if not d or ("command" not in d and "text_command" not in d):
         abort(400)
 
-    cmd_raw = d.get("command") or d.get("text_command")
+    cmd_raw = d.get("command") or d.get("text_command") 
     cmd = cmd_raw.strip().lower()
 
     if "youtube" in cmd:
@@ -48,7 +48,7 @@ def ai_agent_router():
     elif any(k in cmd for k in ["gmail", "email", "mail", "message"]):
         to, body = "", ""
         clean_cmd = re.sub(
-            r'^(please\s+)?(open\s+)?(gmail|email|mail|message)\s*',
+            r'^(please\s+)?(open\s+)?(gmail|email|mail|message)\s*', 
             '',
             cmd
         ).strip()
@@ -74,7 +74,7 @@ def ai_agent_router():
         msg = f"Drafting email to {to}"
 
     return jsonify({
-        "success": True,
+        "success": True, 
         "message": msg,
         "url": target
     })
